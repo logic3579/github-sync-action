@@ -21,3 +21,4 @@ jobs:
         dst_token:  ${{ secrets.GITEE_TOKEN }}
         static_list: 'cncf-record,yakir3.github.io,Tools,environment,picProject'
         force_update: true
+        clone_style: "ssh"

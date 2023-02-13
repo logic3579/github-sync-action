@@ -19,6 +19,6 @@ jobs:
         dst: gitee/yakir3
         dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
         dst_token:  ${{ secrets.GITEE_TOKEN }}
-        static_list: 'environment,work_memo,yakir3.github.io,devops_tools,cncf-record,picProject'
+        static_list: 'yakir3.github.io,environment,cncf-record,work_memo,devops_tools'
         force_update: true
         clone_style: "ssh"

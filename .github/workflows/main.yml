@@ -3,7 +3,7 @@ name: Mirror GitHub Selected Repos to Gitee
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 */7 * *'
+    - cron: '0 03 */7 * *'
 
 jobs:
   run:
@@ -13,7 +13,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Mirror Github to Gitee with white list
-      #uses: yakir3/github-sync-gitee@master
       uses: Yikun/hub-mirror-action@master
       with:
         src: github/yakir3

@@ -3,8 +3,7 @@ Fork from: https://github.com/Yikun/hub-mirror-action
 ```yaml
 steps:
 - name: Mirror the Github organization repos to Gitee.
-  #uses: yakir3/github-sync-gitee@master
-  uses: Yikun/hub-mirror-action@master
+  uses: yakir3/github-sync-gitee@main
   with:
     src: github/yakir3
     dst: gitee/yakir3

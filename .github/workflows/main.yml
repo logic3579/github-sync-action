@@ -13,7 +13,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Mirror Github to Gitee with white list
-      uses: Yikun/hub-mirror-action@master
+      #uses: Yikun/hub-mirror-action@master
+      uses: yakir3/github2gitee-action@main
       with:
         src: github/yakir3
         dst: gitee/yakir3

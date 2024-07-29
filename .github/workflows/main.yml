@@ -20,6 +20,6 @@ jobs:
         dst: gitee/yakir3
         dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
         dst_token:  ${{ secrets.GITEE_TOKEN }}
-        static_list: 'yakir3,knowledge,gitbook,jiracdflow,environment,yakir3.github.io,helm-charts'
+        static_list: 'environment,gitbook,github2gitee-action,helm-charts,jiracdflow,knowledge,optimus,pic-tools,yakir3,yakir3.github.io'
         force_update: true
         clone_style: "ssh"

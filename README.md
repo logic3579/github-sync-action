@@ -1,4 +1,4 @@
-Fork from: https://github.com/Yikun/hub-mirror-action
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/yakir3/github2gitee-action/main.yml?label=GitHub%20Actions&logo=github&logoColor=white)](https://github.com/yakir3/github2gitee-action/actions/workflows/main.yml)
 
 ```yaml
 steps:
@@ -11,3 +11,5 @@ steps:
     dst_token: ${{ secrets.GITEE_TOKEN }}
     account_type: org
 ```
+
+> Fork from: https://github.com/Yikun/hub-mirror-action

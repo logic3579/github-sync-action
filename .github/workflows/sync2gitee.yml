@@ -1,4 +1,4 @@
-name: Mirror GitHub Selected Repos to Gitee
+name: Sync Multiple Repos to Gitee
 
 on:
   workflow_dispatch:

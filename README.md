@@ -1,4 +1,4 @@
-[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/yakir3/github2gitee-action/main.yml?label=GitHub%20Actions&logo=github&logoColor=white)](https://github.com/yakir3/github2gitee-action/actions/workflows/main.yml)
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/yakir3/github2gitee-action/sync2gitee.yml?label=GitHub%20Actions&logo=github&logoColor=white)](https://github.com/yakir3/github2gitee-action/actions)
 
 ```yaml
 steps:

@@ -21,6 +21,7 @@ jobs:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
           git clone https://yakir3:${GH_TOKEN}@github.com/yakir3/${{ matrix.repo }}.git && cd ${{ matrix.repo }}
+          git config http.postBuffer 524288000
           git remote add gitlab https://yakir357:${GITLAB_TOKEN}@gitlab.com/yakir357/${{ matrix.repo }}.git
           git push gitlab main --force
           cd

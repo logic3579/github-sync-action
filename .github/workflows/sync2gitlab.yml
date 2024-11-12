@@ -18,6 +18,7 @@ jobs:
 
       - name: Push to GitLab
         env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
           git clone https://yakir3:${GH_TOKEN}@github.com/yakir3/${{ matrix.repo }}.git && cd ${{ matrix.repo }}

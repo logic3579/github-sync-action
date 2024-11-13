@@ -1,4 +1,4 @@
-name: Sync Multiple Repos to GitLab
+name: Sync Multiple Repos to Gitee
 
 on:
   workflow_dispatch:

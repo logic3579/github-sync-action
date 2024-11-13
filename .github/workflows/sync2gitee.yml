@@ -1,0 +1,26 @@
+name: Sync Multiple Repos to GitLab
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 03 */7 * *'
+ 
+jobs:
+  sync_repos:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repo: [dockerfiles,flask-demo,gitbook,github-sync-action,helm-charts,jiracdflow,optimus,pic-tools,private-env,yakir3,yakir3.github.io]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Push to GitLab
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
+        run: |
+          git clone https://yakir3:${GH_TOKEN}@github.com/yakir3/${{ matrix.repo }}.git && cd ${{ matrix.repo }}
+          git remote add gitee https://yakir3:${GITEE_TOKEN}@gitee.com/yakir3/${{ matrix.repo }}.git
+          git push gitee main --force

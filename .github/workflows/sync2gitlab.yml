@@ -1,9 +1,9 @@
-name: Sync Multiple Repos to GitLab
+name: Sync GitHub Repos to GitLab
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 03 */7 * *'
+    - cron: '0 03 */15 * *'
  
 jobs:
   sync_repos:

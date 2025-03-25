@@ -32,8 +32,8 @@ jobs:
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
           GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
-          GITLAB_REPO_OWNER: ${{ github.repository_owner }}
-          GITEE_REPO_OWNER: "yakir357"
+          GITLAB_REPO_OWNER: "yakir357"
+          GITEE_REPO_OWNER: ${{ github.repository_owner }}
         run: |
           cd ${{ matrix.repo }}
           # 强制推送前检查是否存在远程仓库（避免无效操作）

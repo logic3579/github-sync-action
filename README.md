@@ -1,4 +1,4 @@
-[![GitHub Sync Action](https://img.shields.io/github/actions/workflow/status/yakir3/github-sync-action/sync-repos.yml?label=GitHub%20To%20Gitee&logo=github&logoColor=white)](https://github.com/yakir3/github-sync-action/actions/workflows/sync-repos.yml)
+[![GitHub Sync Action](https://img.shields.io/github/actions/workflow/status/yakir3/github-sync-action/sync-repos.yml?label=GitHub%20Sync%20Action&logo=github&logoColor=white)](https://github.com/yakir3/github-sync-action/actions/workflows/sync-repos.yml)
 
 
 ```yaml

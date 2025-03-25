@@ -22,6 +22,7 @@ jobs:
           repository: yakir3/${{ matrix.repo }}
           path: ${{ matrix.repo }}
           token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
 
       - name: Configure Git Identity
         run: |
@@ -50,9 +51,9 @@ jobs:
           fi
 
           # 避免重复推送同一提交
-          git fetch gitlab main && git fetch gitee main
+          git fetch --unshallow gitlab main && git fetch --unshallow gitee main
           if ! git diff --quiet gitlab/main..main; then
-            git push gitlab main --force-with-lease
+            git push gitlab main
           fi
           if ! git diff --quiet gitee/main..main; then
             git push gitee main --force-with-lease

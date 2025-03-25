@@ -44,8 +44,10 @@ jobs:
           git fetch gitlab main || true
           git fetch gitee main || true
           if ! git diff --quiet gitlab/main..main; then
+            # git push gitlab main --force-if-different
             git push gitlab main --force
           fi
           if ! git diff --quiet gitee/main..main; then
+            # git push gitee main --force-if-different
             git push gitee main --force
           fi

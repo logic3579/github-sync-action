@@ -37,24 +37,15 @@ jobs:
           GITEE_REPO_OWNER: ${{ github.repository_owner }}
         run: |
           cd ${{ matrix.repo }}
-          # 强制推送前检查是否存在远程仓库（避免无效操作）
-          if git ls-remote --exit-code gitlab &>/dev/null; then
-            git remote set-url gitlab https://${{ env.GITLAB_REPO_OWNER }}:$GITLAB_TOKEN@gitlab.com/${{ env.GITLAB_REPO_OWNER }}/${{ matrix.repo }}.git
-          else
-            git remote add gitlab https://${{ env.GITLAB_REPO_OWNER }}:$GITLAB_TOKEN@gitlab.com/${{ env.GITLAB_REPO_OWNER }}/${{ matrix.repo }}.git
-          fi
-
-          if git ls-remote --exit-code gitee &>/dev/null; then
-            git remote set-url gitee https://${{ env.GITEE_REPO_OWNER }}:$GITEE_TOKEN@gitee.com/${{ env.GITEE_REPO_OWNER }}/${{ matrix.repo }}.git
-          else
-            git remote add gitee https://${{ env.GITEE_REPO_OWNER }}:$GITEE_TOKEN@gitee.com/${{ env.GITEE_REPO_OWNER }}/${{ matrix.repo }}.git
-          fi
+          git remote add gitlab https://${{ env.GITLAB_REPO_OWNER }}:$GITLAB_TOKEN@gitlab.com/${{ env.GITLAB_REPO_OWNER }}/${{ matrix.repo }}.git
+          git remote add gitee https://${{ env.GITEE_REPO_OWNER }}:$GITEE_TOKEN@gitee.com/${{ env.GITEE_REPO_OWNER }}/${{ matrix.repo }}.git
 
           # 避免重复推送同一提交
-          git fetch --unshallow gitlab main && git fetch --unshallow gitee main
+          git fetch gitlab main || true
+          git fetch gitee main || true
           if ! git diff --quiet gitlab/main..main; then
-            git push gitlab main
+            git push gitlab main --force
           fi
           if ! git diff --quiet gitee/main..main; then
-            git push gitee main --force-with-lease
+            git push gitee main --force
           fi

@@ -1,6 +1,4 @@
-[![GitHub To Gitee](https://img.shields.io/github/actions/workflow/status/yakir3/github-sync-action/sync2gitee.yml?label=GitHub%20To%20Gitee&logo=github&logoColor=white)](https://github.com/yakir3/github-sync-action/actions/workflows/sync2gitee.yml)
-
-[![GitHub To GitLab](https://img.shields.io/github/actions/workflow/status/yakir3/github-sync-action/sync2gitlab.yml?label=GitHub%20To%20GitLab&logo=github&logoColor=white)](https://github.com/yakir3/github-sync-action/actions/workflows/sync2gitlab.yml)
+[![GitHub Sync Action](https://img.shields.io/github/actions/workflow/status/yakir3/github-sync-action/sync-repos.yml?label=GitHub%20To%20Gitee&logo=github&logoColor=white)](https://github.com/yakir3/github-sync-action/actions/workflows/sync-repos.yml)
 
 
 ```yaml

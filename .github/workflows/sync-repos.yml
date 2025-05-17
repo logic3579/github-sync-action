@@ -20,6 +20,7 @@ jobs:
         id: get-repos
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.GH_TOKEN }}
           script: |
             const { data } = await github.rest.repos.listForAuthenticatedUser({
               per_page: 100,
@@ -43,7 +44,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          repository: yakir3/${{ matrix.repo }}
+          repository: ${{ github.repository_owner }}/${{ matrix.repo }}
           path: ${{ matrix.repo }}
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0

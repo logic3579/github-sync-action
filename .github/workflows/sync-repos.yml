@@ -14,10 +14,10 @@ jobs:
       actions: read
       repository-projects: read
     outputs:
-      repo_list: ${{ steps.get-repos.outputs.repos }}
+      repo_list: ${{ steps.set-output.outputs.repos }}
     steps:
       - name: Get all repositories
-        id: get-repos
+        id: get-all-repos
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GH_TOKEN }}

@@ -21,13 +21,19 @@ jobs:
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GH_TOKEN }}
-          script: |
-            const { data } = await github.rest.repos.listForAuthenticatedUser({
-              per_page: 100,
-              sort: 'updated',
-              direction: 'desc'
-            });
-            core.setOutput('result', JSON.stringify(data.map(repo => repo.name)));
+          script: |     
+            try {
+              const { data } = await github.rest.repos.listForAuthenticatedUser({
+                per_page: 100,
+                sort: 'updated',
+                direction: 'desc'
+              });
+              const repos = data.filter(repo => !repo.archived).map(repo => repo.name);
+              core.setOutput('result', JSON.stringify(repos));
+              console.log('Found repos:', repos);
+            } catch (error) {
+              core.setFailed('Failed to fetch repos: ' + error.message);
+            }
           result-encoding: json
 
   sync_repos:
@@ -40,7 +46,7 @@ jobs:
       contents: read
       actions: read
 
-    steps:
+    steps:      
       - name: Checkout repository
         uses: actions/checkout@v4
         with:

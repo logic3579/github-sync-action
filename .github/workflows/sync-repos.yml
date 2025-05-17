@@ -29,8 +29,14 @@ jobs:
                 direction: 'desc'
               });
               const repos = data.filter(repo => !repo.archived).map(repo => repo.name);
-              core.setOutput('result', JSON.stringify(repos));
+
+              const jsonReadyString = repos.replace(/'/g, '"');
+              const dataArray = JSON.parse(jsonReadyString);
+              const singleLineJSON = JSON.stringify(dataArray);
+              
+              core.setOutput('result', singleLineJSON);
               console.log('Found repos:', repos);
+              console.log('singleLineJSON: ', singleLineJSON);
             } catch (error) {
               core.setFailed('Failed to fetch repos: ' + error.message);
             }

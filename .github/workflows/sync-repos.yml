@@ -35,10 +35,20 @@ jobs:
               core.setFailed('Failed to fetch repos: ' + error.message);
             }
           result-encoding: json
+          
+      - name: Debug Repo List Output
+        run: |
+          echo "Repo list: ${{ steps.get-repos.outputs.result }}"
+          echo "Repo list length: ${{ steps.get-repos.outputs.result | length }}"
+          if [ -z "${{ steps.get-repos.outputs.result }}" ]; then
+            echo "Repo list is empty!"
+            exit 1
+          fi
 
   sync_repos:
     needs: get_repos
     runs-on: ubuntu-latest
+    if: needs.get_repos.outputs.repo_list != ''
     strategy:
       matrix:
         repo: ${{ fromJSON(needs.get_repos.outputs.repo_list) }}

@@ -14,7 +14,7 @@ jobs:
       actions: read
       repository-projects: read
     outputs:
-      repo_list: ${{ steps.get-repos.outputs.repo_list }}
+      repo_list: ${{ steps.get-repos.outputs.repos }}
     steps:
       - name: Get all repositories
         id: get-repos
@@ -44,9 +44,8 @@ jobs:
       - name: Set output using environment variable
         id: set-output
         run: |
-          echo "repo_list=${REPO_LIST_JSON}" >> $GITHUB_OUTPUT
+          echo "repos=${REPO_LIST_JSON}" >> $GITHUB_OUTPUT
           echo "Repo list: ${REPO_LIST_JSON}"
-          echo "Repo list length: ${#REPO_LIST_JSON}"
           if [ -z "${REPO_LIST_JSON}" ]; then
             echo "Repo list is empty!"
             exit 1
@@ -55,7 +54,6 @@ jobs:
   sync_repos:
     needs: get_repos
     runs-on: ubuntu-latest
-    if: needs.get_repos.outputs.repo_list != ''
     strategy:
       matrix:
         repo: ${{ fromJSON(needs.get_repos.outputs.repo_list) }}

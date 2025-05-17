@@ -10,7 +10,7 @@ jobs:
   get_repos:
     runs-on: ubuntu-latest
     outputs:
-      repo_list: ${{ steps.get-repos.outputs.repo_list }}
+      repo_list: ${{ steps.get-repos.outputs.result }}
     steps:
       - name: Get all repositories
         id: get-repos
@@ -22,15 +22,15 @@ jobs:
               sort: 'updated',
               direction: 'desc'
             });
-            return data.map(repo => repo.name).join(',');
-          result-encoding: string
+            core.setOutput('result', JSON.stringify(data.map(repo => repo.name)));
+          result-encoding: json
 
   sync_repos:
     needs: get_repos
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        repo: ${{ fromJSON(format('["{0}"]', join(split(needs.get_repos.outputs.repo_list, ','))) }}
+        repo: ${{ fromJSON(needs.get_repos.outputs.repo_list) }}
     permissions:
       contents: read
       actions: read

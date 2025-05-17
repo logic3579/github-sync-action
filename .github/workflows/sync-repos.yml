@@ -9,6 +9,10 @@ jobs:
 
   get_repos:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      repository-projects: read
     outputs:
       repo_list: ${{ steps.get-repos.outputs.result }}
     steps:

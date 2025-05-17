@@ -14,7 +14,7 @@ jobs:
       actions: read
       repository-projects: read
     outputs:
-      repo_list: ${{ steps.get-repos.outputs.result }}
+      repo_list: ${{ steps.get-repos.outputs.repo_list }}
     steps:
       - name: Get all repositories
         id: get-repos
@@ -29,26 +29,27 @@ jobs:
                 direction: 'desc'
               });
               const repos = data.filter(repo => !repo.archived).map(repo => repo.name);
-
-              const jsonReadyString = repos.replace(/'/g, '"');
-              const dataArray = JSON.parse(jsonReadyString);
-              const singleLineJSON = JSON.stringify(dataArray);
               
-              core.setOutput('result', singleLineJSON);
-              console.log('Found repos:', repos);
-              console.log('singleLineJSON: ', singleLineJSON);
+              // 将数组转换为单行 JSON 字符串
+              const repoJson = JSON.stringify(repos).replace(/\n/g, '');
+              console.log('Repo JSON:', repoJson);
+              
+              // 使用环境变量中转，避免直接设置复杂输出
+              core.exportVariable('REPO_LIST_JSON', repoJson);
             } catch (error) {
               core.setFailed('Failed to fetch repos: ' + error.message);
             }
           # result-encoding: json
-          
-      - name: Debug Repo List Output
+
+      - name: Set output using environment variable
+        id: set-output
         run: |
-          echo "Repo list: ${{ steps.get-repos.outputs.result }}"
-          if [ -z "${{ steps.get-repos.outputs.result }}" ]; then
+          echo "repo_list=${REPO_LIST_JSON}" >> $GITHUB_OUTPUT
+          echo "Repo list: ${REPO_LIST_JSON}"
+          echo "Repo list length: ${#REPO_LIST_JSON}"
+          if [ -z "${REPO_LIST_JSON}" ]; then
             echo "Repo list is empty!"
             exit 1
-          fi
 
   sync_repos:
     needs: get_repos

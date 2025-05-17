@@ -50,6 +50,7 @@ jobs:
           if [ -z "${REPO_LIST_JSON}" ]; then
             echo "Repo list is empty!"
             exit 1
+          fi
 
   sync_repos:
     needs: get_repos

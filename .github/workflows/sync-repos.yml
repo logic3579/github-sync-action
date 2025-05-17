@@ -6,11 +6,31 @@ on:
     - cron: '0 03 */15 * *'
 
 jobs:
+
+  get_repos:
+    runs-on: ubuntu-latest
+    outputs:
+      repo_list: ${{ steps.get-repos.outputs.repo_list }}
+    steps:
+      - name: Get all repositories
+        id: get-repos
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data } = await github.rest.repos.listForAuthenticatedUser({
+              per_page: 100,
+              sort: 'updated',
+              direction: 'desc'
+            });
+            return data.map(repo => repo.name).join(',');
+          result-encoding: string
+
   sync_repos:
+    needs: get_repos
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        repo: [dockerfiles,environment,flask-demo,gitbook,github-sync-action,helm-charts,jiracdflow,optimus,pic-tools,private-env,yakir3,yakir3.github.io]
+        repo: ${{ fromJSON(format('["{0}"]', join(split(needs.get_repos.outputs.repo_list, ','))) }}
     permissions:
       contents: read
       actions: read
@@ -33,7 +53,7 @@ jobs:
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
           GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
-          GITLAB_REPO_OWNER: "yakir357"
+          GITLAB_REPO_OWNER: ${{ github.repository_owner }}
           GITEE_REPO_OWNER: ${{ github.repository_owner }}
         run: |
           cd ${{ matrix.repo }}
